@@ -1,0 +1,578 @@
+database file................
+
+
+package com.example.last;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
+
+public class database extends SQLiteOpenHelper {
+
+    private static  int VERSION =1;
+    private static String DB_NAME = "Student.db";
+    private static String TABLE_NAME="student";
+
+    private  static String ID = "id";
+    private static String NAME = "name";
+    private static String MAIL = "mail";
+    private final Context context;
+
+
+    public database(@Nullable Context context) {
+        super(context, DB_NAME, null, VERSION);
+        this.context = context;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        String QUERY = "CREATE TABLE "+TABLE_NAME+" "+
+                "("
+                +ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                +NAME + " TEXT,"
+                +MAIL + " TEXT"
+                +");";
+        sqLiteDatabase.execSQL(QUERY);
+
+
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        String DROP_DB = "DROP TABLE IF EXISTS "+TABLE_NAME;
+        sqLiteDatabase.execSQL(DROP_DB);
+
+
+    }
+}
+
+
+main file.................
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText editText1, editText2;
+    Button button;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editText1 = (EditText) findViewById(R.id.id1);
+        editText2 = (EditText) findViewById(R.id.id2);
+        button = (Button) findViewById(R.id.button);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String data1 = editText1.getText().toString();
+                String data2 = editText2.getText().toString();
+
+                database db  = new database(MainActivity.this);
+                db.
+            }
+        });
+
+    }
+}
+
+
+
+
+
+dhwa.........................
+
+
+................Two Value..................
+
+
+public class MainActivity extends AppCompatActivity {
+
+  EditText editText1,editText2;
+  Button button;
+  TextView textView;
+
+
+    @SuppressLint("WrongViewCast")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editText1 = (EditText) findViewById(R.id.value1);
+        editText2 = (EditText) findViewById(R.id.value2);
+        button =(Button) findViewById(R.id.button);
+        textView= (TextView)  findViewById(R.id.display);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String data1 = editText1.getText().toString();
+                String data2 = editText2.getText().toString();
+
+                Integer number1 = Integer.valueOf(data1);
+                Integer number2 = Integer.valueOf(data2);
+
+                Integer Add = number1+number2;
+
+                String AddString = String.valueOf(Add);
+
+                textView.setText(AddString);
+
+
+
+            }
+        });
+    }
+}
+
+...................Calculator................
+
+
+public class MainActivity extends AppCompatActivity {
+    EditText editText1,editText2;
+    RadioButton add,sub,mul,div;
+    Button button;
+    TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editText1 = (EditText) findViewById(R.id.value1);
+        editText2 = (EditText) findViewById(R.id.value2);
+        add = (RadioButton) findViewById(R.id.radioButton1);
+        sub = (RadioButton) findViewById(R.id.radioButton2);
+        div = (RadioButton) findViewById(R.id.radioButton3);
+        mul = (RadioButton) findViewById(R.id.radioButton4);
+        button = (Button) findViewById(R.id.button);
+        textView = (TextView) findViewById(R.id.display);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String data1 = editText1.getText().toString();
+                String data2 = editText2.getText().toString();
+
+                if (data1.isEmpty() || data2.isEmpty()){
+                    Toast.makeText(MainActivity.this, "Values are Empty Check Again", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Integer number1 = Integer.valueOf(data1);
+                    Integer number2 = Integer.valueOf(data2);
+
+                    if (add.isChecked()){
+                        Integer addOutput = number1+number2;
+
+                        String convertedAdd = String.valueOf(addOutput);
+                        textView.setText(convertedAdd);
+                    }
+                    else if (sub.isChecked()){
+                        Integer subOutput = number1-number2;
+
+                        String convertedSub = String.valueOf(subOutput);
+                        textView.setText(convertedSub);
+
+                    }
+                    else if (mul.isChecked()) {
+                        Integer mulOutput = number1*number2;
+
+                        String convertedMul = String.valueOf(mulOutput);
+                        textView.setText(convertedMul);
+                    }
+                    else if (div.isChecked()){
+                        Integer divOutput = number1/number2;
+
+                        String convertedDiv = String.valueOf(divOutput);
+                        textView.setText(convertedDiv);
+
+                    }
+                }
+
+
+
+            }
+        });
+
+    }
+}
+
+
+..................Data Send.................
+
+Activity.....
+
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText editText1,editText2,editText3;
+    Button button;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editText1 = (EditText) findViewById(R.id.id1);
+        editText2 = (EditText) findViewById(R.id.id2);
+        editText3 = (EditText) findViewById(R.id.id3);
+        button = (Button) findViewById(R.id.button);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String data1 = editText1.getText().toString();
+                String data2 = editText2.getText().toString();
+                String data3 = editText3.getText().toString();
+
+                if (data1.equals("android") && data3.equals("android")){
+
+                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+
+                        intent.putExtra("Username",data1);
+                        intent.putExtra("Email",data2);
+
+                        startActivity(intent);
+
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Compared Values are not matched", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+}
+
+
+..............Profile.........................
+
+
+public class ProfileActivity extends AppCompatActivity {
+
+    TextView textView1,textView2;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+
+        textView1 = (TextView) findViewById(R.id.display1);
+        textView2 = (TextView) findViewById(R.id.display2);
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null){
+            String name = bundle.getString("Username");
+            textView1.setText(name);
+
+            String email = bundle.getString("Email");
+            textView2.setText(email);
+        }
+    }
+}
+
+.........Relative............
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top">
+    </Button>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/first"
+        android:layout_below="@id/top">
+    </Button>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/second"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/top">
+    </Button>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/third"
+        android:layout_below="@id/second">
+    </Button>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fourth"
+        android:layout_below="@id/second"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/third"
+        >
+    </Button>
+
+
+
+</RelativeLayout>
+
+
+
+.................Seek Bar..................
+
+
+ EditText editText;
+    TextView textView,textView2;
+    SeekBar seekBar;
+    Button button;
+
+    int presentage;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        editText = (EditText) findViewById(R.id.value1);
+        textView2 = (TextView) findViewById(R.id.textView3);
+        textView = (TextView) findViewById(R.id.display);
+        seekBar = (SeekBar) findViewById(R.id.seekBar1);
+        button =(Button) findViewById(R.id.button);
+
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                String x = String.valueOf(seekBar.getProgress());
+                textView2.setText(x);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                    presentage = seekBar.getProgress();
+            }
+        });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+              String y = editText.getText().toString();
+
+              Integer data = Integer.valueOf(y);
+
+              int calculate_tax = (data/100)*presentage;
+
+
+
+              textView.setText(String.valueOf(calculate_tax));
+
+
+
+
+
+
+....................SQLData Base.......................
+
+...Page01...MainActivity........
+
+
+
+    Button button;
+
+    EditText editText1,edittext2;
+
+    DBHelper dbHelper;
+
+    Context context;
+
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        button = (Button) findViewById(R.id.button);
+        editText1 = (EditText) findViewById(R.id.Name);
+        edittext2 = (EditText) findViewById(R.id.Email);
+
+
+        ///
+        context=this;
+        dbHelper = new DBHelper(context);
+        ////
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String getname = editText1.getText().toString();
+                String getEmail = edittext2.getText().toString();
+
+
+                 DB db = new DB (getname,getEmail);
+
+                 dbHelper.addData(db);
+            }
+        });
+    }
+}
+
+
+.....Page02..........DBHelper.....................
+
+
+
+    //database info
+
+    private static  int VERSION =1;
+    private static String DB_NAME = "Student.db";
+
+    private static String TABLE_NAME="student";
+
+    //column name
+
+    private  static String ID = "id";
+    private static String NAME = "name";
+    private static String MAIL = "mail";
+
+
+    public DBHelper(@Nullable Context context) {
+        super(context, DB_NAME, null, VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+        //database table create
+     String CREATE_TABLE_QUERY = "CREATE TABLE "+TABLE_NAME+" "+
+             "("
+             +ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+             +NAME + " TEXT,"
+             +MAIL + " TEXT"
+             +");";
+     sqLiteDatabase.execSQL(CREATE_TABLE_QUERY);
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+        //Drop
+
+         String DROP_DB = "DROP TABLE IF EXISTS "+TABLE_NAME;
+         sqLiteDatabase.execSQL(DROP_DB);
+    }
+     public  void addData(DB db){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();//method
+
+         ContentValues contentValues = new ContentValues();
+
+         contentValues.put(NAME,db.getName());
+         contentValues.put(MAIL,db.getMail());
+
+         sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
+         sqLiteDatabase.close();
+
+     }
+
+
+}
+
+
+.....Page03........DB................
+
+
+
+
+    int id;
+    String name;
+    String mail;
+
+    public DB(){
+
+    }
+    public DB(int id, String name, String mail) {
+        this.id = id;
+        this.name = name;
+        this.mail = mail;
+    }
+
+    public DB(String name, String mail) {
+        this.name = name;
+        this.mail = mail;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+}
+
+
+
+
+
+
+
+
+
+
